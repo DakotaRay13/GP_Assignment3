@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using System.Collections;
 using UnityEngine.SceneManagement;
 
 public class Frog : MonoBehaviour
 {
     public Rigidbody2D rb;
+
+    public GameObject GameOverText;
 
     public Vector2 frogBounds;
 
@@ -39,7 +42,19 @@ public class Frog : MonoBehaviour
         {
             Debug.Log("We Lost");
             Score.CurrentScore = 0;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            StartCoroutine(GameOver());
         }
+    }
+
+    public IEnumerator GameOver()
+    {
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<CircleCollider2D>().enabled = false;
+        GameOverText.SetActive(true);
+
+        yield return new WaitForSeconds(5f);
+
+        SceneManager.LoadScene("EndScene");
     }
 }
