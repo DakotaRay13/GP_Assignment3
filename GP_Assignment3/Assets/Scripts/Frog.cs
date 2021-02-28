@@ -29,6 +29,7 @@ public class Frog : MonoBehaviour
         {
             rb.MovePosition(Vector2.down + rb.position);
         }
+        
     }
 
     private void LateUpdate()
@@ -41,9 +42,12 @@ public class Frog : MonoBehaviour
         if(collision.tag == "Car")
         {
             Debug.Log("We Lost");
-            Score.CurrentScore = 0;
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            StartCoroutine(GameOver());
+            SaveData.CurrentLives -= 1;
+
+            if(SaveData.CurrentLives > 0)
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+
+            else StartCoroutine(GameOver());
         }
     }
 

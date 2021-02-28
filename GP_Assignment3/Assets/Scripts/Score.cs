@@ -9,6 +9,6 @@ public class Score : MonoBehaviour
 
     private void Start()
     {
-        scoreText.text = CurrentScore.ToString();
+        scoreText.text = "Score: " + CurrentScore.ToString();
     }
 }
